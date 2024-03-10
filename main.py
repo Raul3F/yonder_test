@@ -23,10 +23,15 @@ class Scheme():
         today = date.today()
         valid_licenses = []
         for x in self.json_format:
-            issue_str = x.get('dataDeEmitere')
-            issue= self.convert_date(issue_str)            
-            if issue <= today:
-                valid_licenses.append(x)       
+            emitere = x.get('dataDeEmitere')
+            expirare = x.get('dataDeExpirare')
+
+            emitere_json = self.convert_date(emitere)
+            expirare_json = self.convert_date(expirare)
+
+            if emitere_json <= today and expirare_json >= today:
+                if x.get("suspendat") == False:
+                    valid_licenses.append(x)       
         self.save_file(valid_licenses, file_name)
 
 
@@ -72,7 +77,7 @@ def main():
         command= int(input("Please select an input: "))
         if command not in accepted_values:
             print("Incorrect Input")
-            time.sleep(1)
+            time.sleep(2)
             if os.name == 'nt':
                 os.system("cls")
             else:

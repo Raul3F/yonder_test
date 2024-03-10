@@ -72,7 +72,7 @@ def main():
         command= int(input("Please select an input: "))
         if command not in accepted_values:
             print("Incorrect Input")
-            time.sleep(2)
+            time.sleep(1)
             if os.name == 'nt':
                 os.system("cls")
             else:
